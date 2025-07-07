@@ -1,24 +1,24 @@
-version: '3.8'
+version: '3.9'
 
 services:
   db:
-    image: mariadb:11.3
-    restart: unless-stopped
+    image: mariadb:11
+    restart: always
     environment:
-      MARIADB_ROOT_PASSWORD: superSterkRootWachtwoord123!
+      MARIADB_ROOT_PASSWORD: examplepassword
       MARIADB_DATABASE: nextcloud
       MARIADB_USER: nextcloud
-      MARIADB_PASSWORD: sterkWachtwoord456!
+      MARIADB_PASSWORD: nextcloudpassword
     volumes:
       - nextcloud_db:/var/lib/mysql
 
   app:
-    image: nextcloud:29
-    restart: unless-stopped
+    image: nextcloud
+    restart: always
     ports:
-      - "80:80"
+      - "1000:80"   # poort 1000 op je server → poort 80 in container
     environment:
-      MYSQL_PASSWORD: sterkWachtwoord456!
+      MYSQL_PASSWORD: nextcloudpassword
       MYSQL_DATABASE: nextcloud
       MYSQL_USER: nextcloud
       MYSQL_HOST: db
@@ -28,5 +28,6 @@ services:
       - db
 
 volumes:
-  nextcloud_db:
   nextcloud_data:
+  nextcloud_db:
+
