@@ -5,9 +5,9 @@ services:
     image: postgres:16
     restart: always
     environment:
-      POSTGRES_DB: "nextcloud"
-      POSTGRES_USER: "nextcloud"
-      POSTGRES_PASSWORD: "nextcloud123"
+      POSTGRES_DB: nextcloud
+      POSTGRES_USER: nextcloud
+      POSTGRES_PASSWORD: nextcloud123
     volumes:
       - db_data:/var/lib/postgresql/data
 
@@ -17,14 +17,14 @@ services:
     ports:
       - "1000:80"
     environment:
-      POSTGRES_HOST: "db"
-      POSTGRES_DB: "nextcloud"
-      POSTGRES_USER: "nextcloud"
-      POSTGRES_PASSWORD: "nextcloud123"
-    depends_on:
-      - db
+      POSTGRES_HOST: db
+      POSTGRES_DB: nextcloud
+      POSTGRES_USER: nextcloud
+      POSTGRES_PASSWORD: nextcloud123
     volumes:
       - nextcloud_data:/var/www/html
+    depends_on:
+      - db
 
 volumes:
   db_data:
